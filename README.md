@@ -1,4 +1,4 @@
-# cobacoba
+# cobacoba-project
 
 ## Project setup
 ```
