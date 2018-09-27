@@ -1,0 +1,179 @@
+<template>
+  <v-app id="inspire" dark>
+    <v-navigation-drawer
+      v-model="drawer"
+      clipped
+      fixed
+      app
+    >
+      <v-list dense>
+        <v-list-tile @click="pindahKeHome()">
+            <v-list-tile-content>
+                <v-list-tile-title>Home</v-list-tile-title>
+            </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="pindahKeMenu()">
+            <v-list-tile-content>
+                <v-list-tile-title>Menu</v-list-tile-title>
+            </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="pindahKeAbout()">
+            <v-list-tile-content>
+                <v-list-tile-title>About</v-list-tile-title>
+            </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar app fixed clipped-left>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>DasèGoods</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+        <v-container grid-list-md text-xs-center>
+            <v-layout row wrap>
+                <!-- <v-flex v-for="i in 2" :key="`6${i}`" xs6>
+                    <v-card dark color="secondary">
+                        <v-card-text class="px-0" >6</v-card-text>
+                    </v-card>
+                </v-flex> -->
+                <v-flex xs6>
+                    <v-card dark color="secondary">
+                        <v-img src= 'https://preview.ibb.co/kGy0K9/Screen_Shot_2018_09_26_at_4_39_07_PM.png'></v-img>
+                        <!-- <v-img {{gambar}} aspect-ratio="1"></v-img> -->
+                        <v-card-title primary-title>
+                        <div>
+                            <h4 class="headline mb-0" >{{nama}}</h4>
+                        </div>
+                    </v-card-title>
+                    </v-card>
+                    <v-card-actions>
+                        <v-flex xs12 align-end flexbox>
+                            <v-btn flat color="orange">Share</v-btn>
+                        </v-flex>
+                    </v-card-actions>
+                </v-flex>
+                <v-flex xs6>
+                <!-- <v-layout align-center> -->
+                    <v-card dark color="secondary">
+                        <v-card-text class="px-5" >{{nama}}</v-card-text>
+                        <v-form ref="form" v-model="valid" lazy-validation>
+                            <v-flex xs12 sm3 d-flex>
+                                <v-select
+                                v-model="orSize"
+                                :items="ukuran"
+                                :rules="[v => !!v || 'Item is required']"
+                                label="Ukuran"
+                                required
+                                ></v-select>
+                            </v-flex>
+                            <v-flex xs12 sm3 d-flex>
+                            <v-text-field
+                                v-model="orCount"
+                                :rules="qtyRules"
+                                :counter="3"
+                                label="Jumlah"
+                                required
+                                ></v-text-field>
+                            </v-flex>
+                        </v-form>
+                        <p></p>
+                        
+                        <div class="text-xs-center">
+                            <v-dialog
+                            v-model="dialog"
+                            width="500"
+                            >
+                            <p>sssss</p>
+                                <v-btn slot="activator" @click="submit()" :disabled="!valid">Order</v-btn>
+
+                                <v-card>
+                                    <v-card-title
+                                    class="headline grey lighten-2"
+                                    primary-title
+                                    >
+                                        Your order details:
+                                    </v-card-title>
+                                    <v-card-text>
+                                    Your order of {{nama}}: {{orCount}} pc/s of size {{orSize}} 
+                                    </v-card-text>
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn
+                                            color="primary"
+                                            flat
+                                            @click="dialog =false"
+                                        >
+                                            Close
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </div>
+                    </v-card>
+                <!-- </v-layout> -->
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-content>
+    <v-footer app fixed>
+      <span>&copy; Indra Aristya 2018</span>
+    </v-footer>
+  </v-app>
+</template>
+
+
+
+<script>
+export default {
+  data: () => ({
+    drawer: false,
+    gambar: "src= 'https://preview.ibb.co/kGy0K9/Screen_Shot_2018_09_26_at_4_39_07_PM.png'",
+    nama: "Ini Baju",
+    ukuran: ['M','L','XL','XXL'],
+    stok: [10,5,0,20],
+    valid: false,
+    qtyRules: [
+        v => !!v || 'Qty is required',
+        v => v.length <= 3 || 'Only max can ordered 999 pcs',
+        v => v > 0 || 'Min buy 1 pc'
+      ],
+    show: false,
+    orSize: null,
+    orCount: null,
+    dialog: false
+  }),
+  props: {
+    source: String
+  },
+  methods: {
+    addArray() {
+        this.tutor.push(this.nama);
+    },
+    deleteArray(s) {
+        console.log(s);
+        this.tutor.splice(s,1);
+    },
+    pindahKeAbout() {
+        this.$router.push({name:'about'});
+    },
+    pindahKeMenu() {
+        this.$router.push({name:'menu'});
+    },
+    pindahKeHome() {
+        this.$router.push({name:'home'});
+    },
+    submit() {
+        // if (this.orSize != null && this.orCount != '') {
+        //     this.show = true
+        // }
+        console(this.valid)
+        if(this.valid){
+            this.show = true
+        }
+    }
+  }
+}
+</script>
