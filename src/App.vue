@@ -11,14 +11,14 @@
           <v-btn flat><router-link to="/menu">Menu</router-link></v-btn>
         </v-toolbar-items>
       </v-toolbar> -->
-    <router-view/>
+      <router-view />
     </div>
   </v-app>
 </template>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
