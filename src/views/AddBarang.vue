@@ -41,17 +41,25 @@
         :headers="headers"
         :items="barang"
         hide-actions
+        
         class="elevation-1"
         
         >
             <template slot="items" slot-scope="props">
-                <td>{{ props.item.namabaju }}</td>
-                <td class="text-xs-right">{{ props.item.hargabaju }}</td>
-                <td class="text-xs-right">{{ props.item.linkbaju }}</td>
+                <td class="text-center" >{{ props.item.namabaju }}</td>
+                <td class="text-center">{{ props.item.hargabaju }}</td>
+                <!-- <td class="text-xs-right">{{ props.item.linkbaju }}</td> -->
+                <td> <v-btn depressed small color="error" @click="deletes(props.item.id)">Delete</v-btn></td>
             </template>
             
         </v-data-table>
-        <p>{{a}}</p>
+        <v-progress-linear :indeterminate="true" v-if="barang[0] === undefined"></v-progress-linear>
+        <!-- <v-card>
+        <v-flex v-for="(namaB, idx) in namaBaju" :key="idx" xs4>
+            <p> {{namaB.namabaju}} </p>
+            <p> {{namaB.hargabaju}} </p>
+        </v-flex>
+        </v-card> -->
     </v-flex>
 </v-layout>
 </template>
@@ -80,18 +88,18 @@ import { db } from '../main'
       headers: [
           {
             text: 'Nama Barang',
-            align: 'left',
+            align: 'center',
             sortable: true,
             value: 'namabaju'
           },
-          { text: 'Harga Barang', value: 'hargabaju' },
-          { text: 'Link Gambar', value: 'linkbaju' },
+          { text: 'Harga Barang', value: 'hargabaju', align: 'center' },
+          { text: '' , sortable: false},
         ],
         
     }),
     firestore () {
         return {
-        barang: db.collection('produk').orderBy('namabaju','asc')
+        barang: db.collection('produk')
         // a: db.collection('produk').orderBy('namabaju','asc').length
         }
     },
@@ -101,6 +109,10 @@ import { db } from '../main'
             this.namabaju = ''
             this.hargabaju = ''
             this.linkbaju = ''
+        },
+        deletes(id) {
+            // const index = this.barang.indexOf(id)
+            db.collection('produk').doc(id).delete()
         }
     }
   }

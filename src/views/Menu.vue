@@ -30,6 +30,10 @@
     </v-toolbar>
     <v-content>
       <v-container grid-list-md text-xs-center>
+          <v-progress-circular
+            indeterminate
+            color="primary"
+            v-if="namaBaju[0] === undefined"></v-progress-circular>
         <v-layout row wrap>
             <!-- <v-flex v-for="i in 3" :key="`4${i}`" xs4>
                 <v-card>
@@ -84,6 +88,7 @@
             </v-flex>
         </v-layout>
       </v-container>
+      
     <div class="text-xs-center">
         <v-pagination
         v-model="page"
@@ -102,42 +107,47 @@
 
 
 <script>
-import { db } from '../main'
+import { db } from "../main";
 export default {
   data: () => ({
     drawer: false,
     namaBaju: [],
     page: 1,
-    ids: ''
+    ids: ""
   }),
   props: {
     source: String
   },
-  methods: {
-    addArray() {
-        this.tutor.push(this.nama);
-    },
-    deleteArray(s) {
-        console.log(s);
-        this.tutor.splice(s,1);
-    },
-    pindahKeAbout() {
-        this.$router.push({name:'about'});
-    },
-    pindahKeMenu() {
-        this.$router.push({name:'menu'});
-    },
-    pindahKeHome() {
-        this.$router.push({name:'home'});
-    },
-    showDetail() {
-        this.$router.push({name:'detail'});
+  watch: {
+    page() {
+      console.log(this.page);
     }
   },
-  firestore () {
-    return {
-      namaBaju: db.collection('produk').orderBy("namabaju", "asc")
+  methods: {
+    addArray() {
+      this.tutor.push(this.nama);
+    },
+    deleteArray(s) {
+      console.log(s);
+      this.tutor.splice(s, 1);
+    },
+    pindahKeAbout() {
+      this.$router.push({ name: "about" });
+    },
+    pindahKeMenu() {
+      this.$router.push({ name: "menu" });
+    },
+    pindahKeHome() {
+      this.$router.push({ name: "home" });
+    },
+    showDetail() {
+      this.$router.push({ name: "detail" });
     }
+  },
+  firestore() {
+    return {
+      namaBaju: db.collection("produk")
+    };
   }
-}
+};
 </script>
