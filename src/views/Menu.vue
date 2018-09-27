@@ -52,10 +52,10 @@
                     </v-card-actions>
                 </v-card>
             </v-flex> -->
-            <v-flex v-for="(namaB, idx) in namaBaju" :key="idx" xs4>
-                <v-card>
+            <v-flex v-for="(namaB) in namaBaju" :key="namaB.id" xs4>
+                <div @click="showDetail(namaB.id)"
+                style="cursor:pointer"><v-card >
                     <v-img
-                    
                     class="white--text"
                     height="200px"
                     :src= "namaB.linkbaju"
@@ -80,10 +80,10 @@
                     <v-card-actions>
                         <v-flex xs12 align-end flexbox>
                             <v-btn flat color="orange">Share</v-btn>
-                            <v-btn flat color="orange" @click="showDetail()">Explore</v-btn>
+                            <v-btn flat color="orange" @click="showDetail(namaB.id)">Explore</v-btn>
                         </v-flex>
                     </v-card-actions>
-                </v-card>
+                </v-card></div>
                 
             </v-flex>
         </v-layout>
@@ -140,8 +140,8 @@ export default {
     pindahKeHome() {
       this.$router.push({ name: "home" });
     },
-    showDetail() {
-      this.$router.push({ name: "detail" });
+    showDetail(id) {
+      this.$router.push({ name: "detail", params: {id: id}});
     }
   },
   firestore() {

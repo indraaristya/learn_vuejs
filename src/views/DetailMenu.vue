@@ -29,6 +29,7 @@
       <v-toolbar-title>DasèGoods</v-toolbar-title>
     </v-toolbar>
     <v-content>
+   
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
                 <!-- <v-flex v-for="i in 2" :key="`6${i}`" xs6>
@@ -42,7 +43,7 @@
                         <!-- <v-img {{gambar}} aspect-ratio="1"></v-img> -->
                         <v-card-title primary-title>
                         <div>
-                            <h4 class="headline mb-0" >{{nama}}</h4>
+                            <h4 class="headline mb-0" >{{produk.namabaju}}</h4>
                         </div>
                     </v-card-title>
                     </v-card>
@@ -53,9 +54,10 @@
                     </v-card-actions>
                 </v-flex>
                 <v-flex xs6>
+                    <!-- {{produk}} -->
                 <!-- <v-layout align-center> -->
                     <v-card dark color="secondary">
-                        <v-card-text class="px-5" >{{nama}}</v-card-text>
+                        <v-card-text class="px-5" >{{produk.namabaju}}</v-card-text>
                         <v-form ref="form" v-model="valid" lazy-validation>
                             <v-flex xs12 sm3 d-flex>
                                 <v-select
@@ -127,6 +129,8 @@
 
 
 <script>
+
+import { db } from "../main";
 export default {
   data: () => ({
     drawer: false,
@@ -143,10 +147,12 @@ export default {
     show: false,
     orSize: null,
     orCount: null,
-    dialog: false
+    dialog: false,
+    produk: []
   }),
   props: {
-    source: String
+    source: String,
+    id: String
   },
   methods: {
     addArray() {
@@ -174,6 +180,11 @@ export default {
             this.show = true
         }
     }
+  },
+  firestore() {
+    return {
+      produk: db.collection("produk").doc(this.id)
+    };
   }
 }
 </script>

@@ -29,10 +29,11 @@ export default new Router({
       component: () => import('./views/Menu.vue')
     },
     {
-      path: '/detail',
+      path: '/detail/:id',
       // path: '/',
       name: 'detail',
-      component: () => import('./views/DetailMenu.vue')
+      component: () => import('./views/DetailMenu.vue'),
+      props: true
     },
     {
       path: '/yudha',
