@@ -1,8 +1,15 @@
 <template>
+<v-app>
     <v-layout justify-center>
         <v-flex xs12 sm6>
+          <!-- <v-toolbar-items class="hidden-sm-and-down"> -->
+            <div style="text-align: left">
+          <v-btn color="error" style="margin:10px" @click="$router.push({name: 'yudhasboard'})">Back</v-btn>
+            </div>
             <br>
             <h2 class="white--text"><strong>Barang</strong></h2>
+            
+              
             <v-card>
                 <v-form v-model="valid" @keyup.enter.native="submit(namabaju,hargabaju,linkbaju)">
                     <v-layout justify-center>
@@ -43,6 +50,7 @@
         </v-card> -->
         </v-flex>
     </v-layout>
+    </v-app>
 </template>
 
 
