@@ -8,7 +8,6 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click="pindahKeMenu()">
-
           <v-list-tile-content>
             <v-list-tile-title>Menu</v-list-tile-title>
           </v-list-tile-content>
@@ -16,6 +15,11 @@
         <v-list-tile @click="pindahKeAbout()">
           <v-list-tile-content>
             <v-list-tile-title>About</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="pindahKeDashboard()">
+          <v-list-tile-content>
+            <v-list-tile-title>Dashboard</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -88,6 +92,9 @@ export default {
     },
     pindahKeHome() {
       this.$router.push({ name: "home" });
+    },
+    pindahKeDashboard() {
+      this.$router.push({ name: "yudhasboard" });
     }
   }
 };
