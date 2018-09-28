@@ -9,8 +9,13 @@
                         <v-flex xs12 sm6>
                             <v-text-field v-model="namabaju" :rules="namaRules" :counter="20" label="Nama Barang" required></v-text-field>
                             <v-text-field v-model="hargabaju" :rules="hargaRules" label="Harga Barang" required></v-text-field>
-                            <v-text-field v-model="linkbaju" :rules="linkRules" label="Link Gambar Barang" required></v-text-field>
+                            <!-- <v-text-field v-model="linkbaju" :rules="linkRules" label="Link Gambar Barang" required></v-text-field> -->
                             <br>
+                            <p v-if="linkbaju != ''" class="green--text"> Photo ready to Submit! </p>
+                            <div>
+                                <input type="file" multiple accept="image/jpeg/png" @change="detectFiles($event.target.files)">
+                                <v-progress-linear class="progress-bar" :style="{ width: progressUpload + '%'}">{{ progressUpload }}%</v-progress-linear>
+                            </div>
                             <v-btn :disabled="!valid" @click="submit(namabaju,hargabaju,linkbaju)">
                                 Submit
                             </v-btn>
@@ -42,7 +47,7 @@
 
 
 <script>
-import { db } from "../main";
+import { db, storage} from "../main";
 export default {
   data: () => ({
     valid: true,
@@ -66,7 +71,10 @@ export default {
       },
       { text: "Harga Barang", value: "hargabaju", align: "center" },
       { text: "", sortable: false }
-    ]
+    ],
+    progressUpload: 0,
+    file: File,
+    uploadTask: ""
   }),
   firestore() {
     return {
@@ -86,6 +94,33 @@ export default {
       db.collection("produk")
         .doc(id)
         .delete();
+    },
+    detectFiles(fileList) {
+      Array.from(Array(fileList.length).keys()).map(x => {
+        this.upload(fileList[x]);
+      });
+    },
+    upload(file) {
+      this.uploadTask = storage.ref(file.name).put(file);
+    }
+  },
+  watch: {
+    uploadTask: function() {
+      this.uploadTask.on(
+        "state_changed",
+        sp => {
+          this.progressUpload = Math.floor(
+            sp.bytesTransferred / sp.totalBytes * 100
+          );
+        },
+        null,
+        () => {
+          this.uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            this.$emit("url", downloadURL);
+            this.linkbaju = downloadURL;
+          });
+        }
+      );
     }
   }
 };

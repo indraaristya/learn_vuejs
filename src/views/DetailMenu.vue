@@ -34,8 +34,7 @@
                 </v-flex> -->
                     <v-flex xs6>
                         <v-card dark color="secondary">
-                            <v-img src='https://preview.ibb.co/kGy0K9/Screen_Shot_2018_09_26_at_4_39_07_PM.png'></v-img>
-                            <!-- <v-img {{gambar}} aspect-ratio="1"></v-img> -->
+                            <v-img :src="produk.linkbaju"></v-img>
                             <v-card-title primary-title>
                                 <div>
                                     <h4 class="headline mb-0">{{produk.namabaju}}</h4>
