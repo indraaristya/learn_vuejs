@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire" dark>
+    <v-app id="inspire" light>
         <v-navigation-drawer v-model="drawer" clipped fixed app>
             <v-list dense>
                 <v-list-tile @click="pindahKeHome()">
@@ -34,25 +34,25 @@
                 </v-flex> -->
                     <v-flex sm1></v-flex>
                     <v-flex xs12 sm5>
-                        <v-card dark color="secondary">
+                        <v-card dark color="white">
                             <v-img :src="produk.linkbaju" height="500px" width="450px"></v-img>
                             <v-card-title primary-title>
                                 <div>
-                                    <h4 class="headline mb-0">{{produk.namabaju}}</h4>
+                                    <h4 class="headline mb-0" style="color:orange;font-style:oblique" >{{produk.namabaju}}</h4>
                                 </div>
                             </v-card-title>
                         </v-card>
                         <v-card-actions>
                             <v-flex xs12 align-end flexbox>
-                                <v-btn flat color="orange">Share</v-btn>
+                                <v-btn  color="orange">Share</v-btn>
                             </v-flex>
                         </v-card-actions>
                     </v-flex>
                     <v-flex xs12 sm5>
                         <!-- {{produk}} -->
                         <!-- <v-layout align-center> -->
-                        <v-card dark color="secondary">
-                            <v-card-text class="px-5">{{produk.namabaju}}</v-card-text>
+                        <v-card light color="white">
+                            <v-card-text class="px-5" style="text-transform: uppercase;font-family:Lucida Console; font-style:oblique"><h1>{{produk.namabaju}}</h1></v-card-text>
                             <v-form ref="form" v-model="valid" lazy-validation>
                                 <v-flex xs12 sm4>
                                     <v-select v-model="orSize" :items="ukuran" :rules="[v => !!v || 'Item is required']" label="Ukuran" required></v-select>
@@ -65,7 +65,7 @@
                                 <v-flex xs12 sm3 d-flex>
                                     <v-text-field v-model="orCount" :rules="qtyRules" :counter="3" label="Jumlah" required></v-text-field>
                                 </v-flex>
-                                <v-btn>Order</v-btn>
+                                <v-btn color="success">Order</v-btn>
                             </v-form>
                             <p></p>
 

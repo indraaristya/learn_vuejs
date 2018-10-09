@@ -8,7 +8,7 @@
         </div>
         <br>
         <h2 class="white--text"><strong>Barang</strong></h2>
-
+        <p class="white--text">{{tryedit.namabaju}}</p>
         <v-card>
           <v-form v-model="valid" @keyup.enter.native="submit(namabaju,hargabaju,linkbaju,stok_S,stok_M,stok_L,stok_XL,stok_XXL)">
             <v-layout justify-center>
@@ -42,20 +42,75 @@
             <td class="text-center">{{ props.item.hargabaju }}</td>
             <!-- <td class="text-xs-right">{{ props.item.linkbaju }}</td> -->
             <td>
-              <v-btn depressed small color="error" @click="deletes(props.item.id)">Delete</v-btn>
+              <v-btn depressed flat icon color="error" @click="deletes(props.item.id)"><v-icon dark>delete</v-icon></v-btn>
+              <v-btn depressed flat icon color="blue" @click="edit(props.item.id)"><v-icon dark>edit</v-icon></v-btn>
             </td>
           </template>
-
         </v-data-table>
+        
         <v-progress-linear :indeterminate="true" v-if="barang[0] === undefined"></v-progress-linear>
-        <!-- <v-card>
-        <v-flex v-for="(namaB, idx) in namaBaju" :key="idx" xs4>
-            <p> {{namaB.namabaju}} </p>
-            <p> {{namaB.hargabaju}} </p>
-        </v-flex>
-        </v-card> -->
+
       </v-flex>
     </v-layout>
+
+    <!-- DIALOG SHOW -->
+    <!-- <v-layout row justify-center>
+    <v-dialog v-model="dialog" persistent max-width="500px">
+      <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
+      <v-card>
+        <v-card-title>
+          <span class="headline">User Profile</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12 sm6 md4>
+                <v-text-field label="Legal first name" required></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field
+                  label="Legal last name"
+                  hint="example of persistent helper text"
+                  persistent-hint
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field label="Email" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field label="Password" type="password" required></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-select
+                  :items="['0-17', '18-29', '30-54', '54+']"
+                  label="Age"
+                  required
+                ></v-select>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-autocomplete
+                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                  label="Interests"
+                  multiple
+                  chips
+                ></v-autocomplete>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="dialog = false">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-layout> -->
   </v-app>
 </template>
 
@@ -64,6 +119,7 @@
 import { db, storage } from "../main";
 export default {
   data: () => ({
+    dialog: false,
     valid: true,
     namabaju: "",
     namaRules: [
@@ -84,6 +140,7 @@ export default {
       v => v >= 0 || "Masukkan jumlah barang!"],
     barang: [],
     a: "",
+    tryedit: [],
     headers: [
       {
         text: "Nama Barang",
@@ -120,6 +177,12 @@ export default {
       db.collection("produk")
         .doc(id)
         .delete();
+    },
+    edit(id) {
+      // const index = this.barang.indexOf(id)
+      this.tryedit = db.collection("produk")
+        .doc(id)
+        .get;
     },
     detectFiles(fileList) {
       Array.from(Array(fileList.length).keys()).map(x => {

@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" dark>
+  <v-app id="inspire" light>
     <v-navigation-drawer v-model="drawer" clipped fixed app>
       <v-list dense>
         <v-list-tile @click="pindahKeHome()">
