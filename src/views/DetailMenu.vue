@@ -32,9 +32,10 @@
                         <v-card-text class="px-0" >6</v-card-text>
                     </v-card>
                 </v-flex> -->
-                    <v-flex xs6>
+                    <v-flex sm1></v-flex>
+                    <v-flex xs12 sm5>
                         <v-card dark color="secondary">
-                            <v-img :src="produk.linkbaju"></v-img>
+                            <v-img :src="produk.linkbaju" height="500px" width="450px"></v-img>
                             <v-card-title primary-title>
                                 <div>
                                     <h4 class="headline mb-0">{{produk.namabaju}}</h4>
@@ -47,22 +48,28 @@
                             </v-flex>
                         </v-card-actions>
                     </v-flex>
-                    <v-flex xs6>
+                    <v-flex xs12 sm5>
                         <!-- {{produk}} -->
                         <!-- <v-layout align-center> -->
                         <v-card dark color="secondary">
                             <v-card-text class="px-5">{{produk.namabaju}}</v-card-text>
                             <v-form ref="form" v-model="valid" lazy-validation>
-                                <v-flex xs12 sm3 d-flex>
+                                <v-flex xs12 sm4>
                                     <v-select v-model="orSize" :items="ukuran" :rules="[v => !!v || 'Item is required']" label="Ukuran" required></v-select>
+                                    <p v-if="orSize == 'S'" style="font-family:courier; color:gray; text-align:left">Stock: {{produk.stok_S}} pcs</p>
+                                    <p v-if="orSize == 'M'" style="font-family:courier; color:gray; text-align:left">Stock: {{produk.stok_M}} pcs</p>
+                                    <p v-if="orSize == 'L'" style="font-family:courier; color:gray; text-align:left">Stock: {{produk.stok_L}} pcs</p>
+                                    <p v-if="orSize == 'XL'" style="font-family:courier; color:gray; text-align:left">Stock: {{produk.stok_XL}} pcs</p>
+                                    <p v-if="orSize == 'XXL'" style="font-family:courier; color:gray; text-align:left">Stock: {{produk.stok_XXL}} pcs</p>
                                 </v-flex>
                                 <v-flex xs12 sm3 d-flex>
                                     <v-text-field v-model="orCount" :rules="qtyRules" :counter="3" label="Jumlah" required></v-text-field>
                                 </v-flex>
+                                <v-btn>Order</v-btn>
                             </v-form>
                             <p></p>
 
-                            <div class="text-xs-center">
+                            <!-- <div class="text-xs-center">
                                 <v-dialog v-model="dialog" width="500">
                                     <p>sssss</p>
                                     <v-btn slot="activator" @click="submit()" :disabled="!valid">Order</v-btn>
@@ -85,7 +92,7 @@
                                         </v-card-actions>
                                     </v-card>
                                 </v-dialog>
-                            </div>
+                            </div> -->
                         </v-card>
                         <!-- </v-layout> -->
                     </v-flex>
@@ -105,10 +112,7 @@ import { db } from "../main";
 export default {
   data: () => ({
     drawer: false,
-    gambar:
-      "src= 'https://preview.ibb.co/kGy0K9/Screen_Shot_2018_09_26_at_4_39_07_PM.png'",
-    nama: "Ini Baju",
-    ukuran: ["M", "L", "XL", "XXL"],
+    ukuran: ["S", "M", "L", "XL", "XXL"],
     stok: [10, 5, 0, 20],
     valid: false,
     qtyRules: [

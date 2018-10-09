@@ -46,41 +46,44 @@
             </v-flex> -->
                     <v-flex v-for="(namaB) in namaBaju" :key="namaB.id" xs4>
                         <div @click="showDetail(namaB.id)" style="cursor:pointer">
-                            <v-card>
-                                <v-img class="white--text" height="200px" :src="namaB.linkbaju">
-                                    <v-container fill-height fluid>
-                                        <v-layout fill-height>
-                                            <!-- <v-flex xs12 align-end flexbox>
-                                <span class="headline">{{namaB.namabaju}} </span>
-                            </v-flex> -->
-                                        </v-layout>
-                                    </v-container>
-                                </v-img>
-                                <v-card-title>
-                                    <v-flex xs12 align-end flexbox>
-                                        <div>
-                                            <span class="white--text"><strong> Rp.{{namaB.hargabaju}} </strong></span><br>
-                                            <span class="white--text"><strong> {{namaB.namabaju}} </strong></span><br>
-                                            <!-- <span>Whitsunday Island, Whitsunday Islands</span> -->
-                                        </div>
-                                    </v-flex>
-                                </v-card-title>
-                                <v-card-actions>
-                                    <v-flex xs12 align-end flexbox>
-                                        <v-btn flat color="orange">Share</v-btn>
-                                        <v-btn flat color="orange" @click="showDetail(namaB.id)">Explore</v-btn>
-                                    </v-flex>
-                                </v-card-actions>
-                            </v-card>
+                            <!-- <v-flex xs12 sm10> -->
+                                <v-card>
+                                    <v-img class="white--text" height="200px" :src="namaB.linkbaju">
+                                        <v-container fill-height fluid>
+                                            <v-layout fill-height>
+                                                <!-- <v-flex xs12 align-end flexbox>
+                                    <span class="headline">{{namaB.namabaju}} </span>
+                                </v-flex> -->
+                                            </v-layout>
+                                        </v-container>
+                                    </v-img>
+                                    <v-card-title>
+                                        <v-flex xs12 align-end flexbox>
+                                            <div>
+                                                <span class="white--text"><strong> Rp.{{namaB.hargabaju}} </strong></span><br>
+                                                <span class="white--text"><strong> {{namaB.namabaju}} </strong></span><br>
+                                                <!-- <span>Whitsunday Island, Whitsunday Islands</span> -->
+                                            </div>
+                                        </v-flex>
+                                    </v-card-title>
+                                    <!-- <v-card-actions>
+                                        <v-flex xs12 align-end flexbox>
+                                            <v-btn flat color="orange">Share</v-btn>
+                                            <v-btn flat color="orange" @click="showDetail(namaB.id)">Explore</v-btn>
+                                        </v-flex>
+                                    </v-card-actions> -->
+                                </v-card>
+                                
+                            <!-- </v-flex> -->
                         </div>
 
                     </v-flex>
                 </v-layout>
             </v-container>
 
-            <div class="text-xs-center">
+            <!-- <div class="text-xs-center">
                 <v-pagination v-model="page" :length="4" circle></v-pagination>
-            </div>
+            </div> -->
             <br>
     </v-content>
             <v-footer app fixed>

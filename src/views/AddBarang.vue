@@ -10,11 +10,18 @@
         <h2 class="white--text"><strong>Barang</strong></h2>
 
         <v-card>
-          <v-form v-model="valid" @keyup.enter.native="submit(namabaju,hargabaju,linkbaju)">
+          <v-form v-model="valid" @keyup.enter.native="submit(namabaju,hargabaju,linkbaju,stok_S,stok_M,stok_L,stok_XL,stok_XXL)">
             <v-layout justify-center>
               <v-flex xs12 sm6>
                 <v-text-field v-model="namabaju" :rules="namaRules" :counter="20" label="Nama Barang" required></v-text-field>
                 <v-text-field v-model="hargabaju" :rules="hargaRules" label="Harga Barang" required></v-text-field>
+                <v-flex xs8 sm6>
+                  <v-text-field v-model="stok_S" :rules="stokRules" label="Stok Ukuran S" required></v-text-field>
+                  <v-text-field v-model="stok_M" :rules="stokRules" label="Stok Ukuran M" required></v-text-field>
+                  <v-text-field v-model="stok_L" :rules="stokRules" label="Stok Ukuran L" required></v-text-field>
+                  <v-text-field v-model="stok_XL" :rules="stokRules" label="Stok Ukuran XL" required></v-text-field>
+                  <v-text-field v-model="stok_XXL" :rules="stokRules" label="Stok Ukuran XXL" required></v-text-field>
+                </v-flex>
                 <!-- <v-text-field v-model="linkbaju" :rules="linkRules" label="Link Gambar Barang" required></v-text-field> -->
                 <br>
                 <p v-if="linkbaju != ''" class="green--text"> Photo ready to Submit! </p>
@@ -22,7 +29,7 @@
                   <input type="file" multiple accept="image/jpeg/png" @change="detectFiles($event.target.files)">
                   <v-progress-linear class="progress-bar" :style="{ width: progressUpload + '%'}">{{ progressUpload }}%</v-progress-linear>
                 </div>
-                <v-btn :disabled="!valid" @click="submit(namabaju,hargabaju,linkbaju)">
+                <v-btn :disabled="!valid" @click="submit(namabaju,hargabaju,linkbaju,stok_S,stok_M,stok_L,stok_XL,stok_XXL)">
                   Submit
                 </v-btn>
               </v-flex>
@@ -67,6 +74,14 @@ export default {
     hargaRules: [v => !!v || "Harga Barang is required"],
     linkbaju: "",
     linkRules: [v => !!v || "Link Gambar is required"],
+    stok_S: "",
+    stok_M: "",
+    stok_L: "",
+    stok_XL: "",
+    stok_XXL: "",
+    stokRules: [
+      v => !!v || "Masukkan jumlah barang",
+      v => v >= 0 || "Masukkan jumlah barang!"],
     barang: [],
     a: "",
     headers: [
@@ -86,15 +101,19 @@ export default {
   firestore() {
     return {
       barang: db.collection("produk")
-      // a: db.collection('produk').orderBy('namabaju','asc').length
     };
   },
   methods: {
-    submit(namabaju, hargabaju, linkbaju) {
-      db.collection("produk").add({ hargabaju, linkbaju, namabaju });
-      this.namabaju = "";
-      this.hargabaju = "";
-      this.linkbaju = "";
+    submit(namabaju, hargabaju, linkbaju, stok_S, stok_M, stok_L, stok_XL, stok_XXL) {
+      db.collection("produk").add({ hargabaju, linkbaju, namabaju, stok_L, stok_M, stok_S, stok_XL, stok_XXL });
+      this.namabaju = " ";
+      this.hargabaju = " ";
+      this.linkbaju = " ";
+      this.stok_S = " ";
+      this.stok_M = " ";
+      this.stok_L = " ";
+      this.stok_XL = " ";
+      this.stok_XXL = " ";
     },
     deletes(id) {
       // const index = this.barang.indexOf(id)
