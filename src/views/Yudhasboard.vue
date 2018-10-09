@@ -21,6 +21,7 @@
                 <br>
                 <br>
                 <!-- <div v-if="salah === true"> <p class="wrongpass"><strong>Wrong Password! </strong></p></div> -->
+                <p>user: yudha & pass: 123</p>
                 <div v-if="salah === true">
                   <p class="wrongpass"><strong>Wrong Password! </strong></p>
                 </div>

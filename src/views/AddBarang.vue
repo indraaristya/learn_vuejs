@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-layout justify-center>
-      <v-flex xs6 sm6>
+      <v-flex xs11 sm8>
         <!-- <v-toolbar-items class="hidden-sm-and-down"> -->
         <div style="text-align: left">
           <v-btn color="error" style="margin:10px" @click="$router.push({name: 'yudhasboard'})">Back</v-btn>
@@ -12,10 +12,10 @@
         <v-card>
           <v-form v-model="valid" @keyup.enter.native="submit(namabaju,hargabaju,linkbaju,stok_S,stok_M,stok_L,stok_XL,stok_XXL)">
             <v-layout justify-center>
-              <v-flex xs6 sm6>
+              <v-flex xs9 sm7>
                 <v-text-field v-model="namabaju" :rules="namaRules" :counter="20" label="Nama Barang" required></v-text-field>
                 <v-text-field v-model="hargabaju" :rules="hargaRules" label="Harga Barang" required></v-text-field>
-                <v-flex xs8 sm6>
+                <v-flex xs9 sm7>
                   <v-text-field v-model="stok_S" :rules="stokRules" label="Stok Ukuran S" required></v-text-field>
                   <v-text-field v-model="stok_M" :rules="stokRules" label="Stok Ukuran M" required></v-text-field>
                   <v-text-field v-model="stok_L" :rules="stokRules" label="Stok Ukuran L" required></v-text-field>
