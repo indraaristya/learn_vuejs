@@ -34,8 +34,8 @@
                 </v-flex> -->
                     <v-flex sm1></v-flex>
                     <v-flex xs12 sm5>
-                        <v-card dark color="white">
-                            <v-img :src="produk.linkbaju" height="500px" width="450px"></v-img>
+                        <v-card light>
+                            <v-img :src="produk.linkbaju" height="100%" width="100%"></v-img>
                             <v-card-title primary-title>
                                 <div>
                                     <h4 class="headline mb-0" style="color:orange;font-style:oblique" >{{produk.namabaju}}</h4>
@@ -51,7 +51,7 @@
                     <v-flex xs12 sm5>
                         <!-- {{produk}} -->
                         <!-- <v-layout align-center> -->
-                        <v-card light color="white">
+                        <v-card light>
                             <v-card-text class="px-5" style="text-transform: uppercase;font-family:Lucida Console; font-style:oblique"><h1>{{produk.namabaju}}</h1></v-card-text>
                             <v-form ref="form" v-model="valid" lazy-validation>
                                 <v-flex xs12 sm4>
@@ -62,10 +62,12 @@
                                     <p v-if="orSize == 'XL'" style="font-family:courier; color:gray; text-align:left">Stock: {{produk.stok_XL}} pcs</p>
                                     <p v-if="orSize == 'XXL'" style="font-family:courier; color:gray; text-align:left">Stock: {{produk.stok_XXL}} pcs</p>
                                 </v-flex>
-                                <v-flex xs12 sm3 d-flex>
-                                    <v-text-field v-model="orCount" :rules="qtyRules" :counter="3" label="Jumlah" required></v-text-field>
+                                <v-flex xs12 sm4 d-flex>
+                                    <v-text-field v-if="stok != 0" v-model="orCount" :rules="qtyRules" :counter="3" label="Jumlah" required type="number"></v-text-field>
+                                    <p v-if="stok == 0" class="red--text">Out of Stock</p>
+                                    
                                 </v-flex>
-                                <v-btn color="success">Order</v-btn>
+                                <v-btn color="success" >Order</v-btn>
                             </v-form>
                             <p></p>
 
@@ -113,22 +115,53 @@ export default {
   data: () => ({
     drawer: false,
     ukuran: ["S", "M", "L", "XL", "XXL"],
-    stok: [10, 5, 0, 20],
     valid: false,
     qtyRules: [
-      v => !!v || "Qty is required",
-      v => v.length <= 3 || "Only max can ordered 999 pcs",
-      v => v > 0 || "Min buy 1 pc"
+      v => !!v || "Qty is required"
+    //   v => v != 0 || "Qty is required"
+    //   v => v.length != 0 || "Only max can ordered 999 pcs",
     ],
     show: false,
     orSize: null,
     orCount: null,
     dialog: false,
-    produk: []
+    produk: [],
+    stok: null,
+    asd: false
   }),
   props: {
     source: String,
     id: String
+  },
+  created() {
+
+
+
+  },
+  watch: {
+      orCount(){
+        if (parseInt(this.orCount) > this.stok) {
+            this.qtyRules.push(parseInt(this.orCount) < this.stok || "There's no more clothes")
+        } else if (parseInt(this.orCount) <= 0) {
+            this.qtyRules.push(parseInt(this.orCount) > 0 || "At least buy 1")        
+        } else {
+            this.qtyRules.pop()
+        }          
+      },
+      orSize() {
+          if (this.orSize === 'S') {
+              this.stok = this.produk.stok_S;
+          } else if (this.orSize === 'M') {
+              this.stok = this.produk.stok_M;
+          } else if (this.orSize === 'L') {
+              this.stok = this.produk.stok_L;
+          } else if (this.orSize === 'XL') {
+              this.stok = this.produk.stok_XL;
+          } else if (this.orSize === 'XXL') {
+              this.stok = this.produk.stok_XXL;
+          } 
+          this.orCount = null;
+      }
   },
   methods: {
     addArray() {
@@ -151,7 +184,6 @@ export default {
       // if (this.orSize != null && this.orCount != '') {
       //     this.show = true
       // }
-      console(this.valid);
       if (this.valid) {
         this.show = true;
       }
